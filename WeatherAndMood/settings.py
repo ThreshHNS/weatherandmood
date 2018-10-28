@@ -40,6 +40,14 @@ INSTALLED_APPS = [
     'weather',
 ]
 
+#Ссылка, по которой статика будет доступна на веб-странице
+STATIC_URL = '/static/'
+
+#Папка на сервере, в которой будет храниться статика
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

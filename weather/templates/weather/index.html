@@ -1,0 +1,179 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
+		
+		<title>Compass Starter by Ariona, Rian</title>
+
+		<!-- Loading third party fonts -->
+		<link href="http://fonts.googleapis.com/css?family=Roboto:300,400,700|" rel="stylesheet" type="text/css">
+		<link href={% static "fonts/font-awesome.min.css" %} rel="stylesheet" type="text/css">
+
+		<!-- Loading main css file -->
+		<link rel="stylesheet" href={% static "style.css" %}>
+		<link rel="stylesheet" href={% static "owfont-regular.css" %} type="text/css">
+		
+		<!--[if lt IE 9]>
+		<script src="js/ie-support/html5.js"></script>
+		<script src="js/ie-support/respond.js"></script>
+		<![endif]-->
+
+	</head>
+
+
+	<body>
+		
+		<div class="site-content">
+			<div class="site-header">
+				<div class="container">
+					<a href="index.html" class="branding">
+						<img src={% static "images/logo.svg" %} alt="Weather and Mood logo" class="logo" width="320px">
+					</a>
+
+					<!-- Default snippet for navigation -->
+					<div class="main-navigation">
+						<button type="button" class="menu-toggle"><i class="fa fa-bars"></i></button>
+						<ul class="menu">
+							<li class="menu-item current-menu-item"><a href="index.html">Home</a></li>
+							<li class="menu-item"><a href="news.html">Cities</a></li>
+							<li class="menu-item"><a href="https://github.com/ThreshHNS/weatherandmood">GitHub</a></li>
+						</ul> <!-- .menu -->
+					</div> <!-- .main-navigation -->
+
+					<div class="mobile-navigation"></div>
+
+				</div>
+			</div> <!-- .site-header -->
+
+			<div class="hero" data-bg-image="images/banner.png" style="background-image: url({% static "images/banner.png" %});">
+				<div class="container">
+					<form method="POST" action="#" class="add-location">
+					{% csrf_token %}	
+						{{ form.name }}
+						<input type="submit" value="Add">
+					</form>
+				</div>
+			</div>
+			{% for city_weather in data_weather %}
+			<div class="forecast-table">
+				<div class="container">
+					<div class="forecast-container">
+						<div class="today forecast">
+							<div class="forecast-header">
+								<div class="day">{{ weekday.0|date:"l" }}</div>
+								<div class="date">{{ weekday.0|date:"j M" }}</div>
+							</div> <!-- .forecast-header -->
+							<div class="forecast-content">
+								<div class="location">{{ city_weather.city}} <i class="fa fa-info-circle" aria-hidden="true"></i></div>
+								<div class="degree">
+									<div class="num">{{ city_weather.temperature.0 }}<sup>o</sup>C</div>
+									<div class="forecast-icon">
+										<img src={% static "images/icons/"|add:city_weather.icon.0|add:".svg" %} alt="" width=90>									
+									</div>	
+								</div>
+								<span><img src={% static "images/icon-umberella.png" %} alt="">{{ city_weather.humidity }}%</span>
+								<span><img src={% static "images/icon-wind.png" %} alt="">{{ city_weather.wind }}m/s</span>
+								<span><img src={% static "images/icon-compass.png" %} alt="">{{ city_weather.wind_dir }}</span>
+							</div>
+						</div>
+						<div class="forecast">
+							<div class="forecast-header">
+								<div class="day">{{ weekday.1|date:"l" }}</div>
+							</div> <!-- .forecast-header -->
+							<div class="forecast-content">
+								<div class="forecast-icon">
+									<img src={% static "images/icons/"|add:city_weather.icon.1|add:".svg" %} alt="" width=48>
+								</div>
+								<div class="degree">{{ city_weather.temperature.1 }}<sup>o</sup>C</div>
+								<small>{{ city_weather.night.1 }}<sup>o</sup></small>
+							</div>
+						</div>
+						<div class="forecast">
+							<div class="forecast-header">
+								<div class="day">{{ weekday.2|date:"l" }}</div>
+							</div> <!-- .forecast-header -->
+							<div class="forecast-content">
+								<div class="forecast-icon">
+									<img src={% static "images/icons/"|add:city_weather.icon.2|add:".svg" %} alt="" width=48>
+								</div>
+								<div class="degree">{{ city_weather.temperature.2 }}<sup>o</sup>C</div>
+								<small>{{ city_weather.night.2 }}<sup>o</sup></small>
+							</div>
+						</div>
+						<div class="forecast">
+							<div class="forecast-header">
+								<div class="day">{{ weekday.3|date:"l" }}</div>
+							</div> <!-- .forecast-header -->
+							<div class="forecast-content">
+								<div class="forecast-icon">
+									<img src={% static "images/icons/"|add:city_weather.icon.3|add:".svg" %} alt="" width=48>
+								</div>
+								<div class="degree">{{ city_weather.temperature.3 }}<sup>o</sup>C</div>
+								<small>{{ city_weather.night.3 }}<sup>o</sup></small>
+							</div>
+						</div>
+						<div class="forecast">
+							<div class="forecast-header">
+								<div class="day">{{ weekday.4|date:"l" }}</div>
+							</div> <!-- .forecast-header -->
+							<div class="forecast-content">
+								<div class="forecast-icon">
+									<img src={% static "images/icons/"|add:city_weather.icon.4|add:".svg" %} alt="" width=48>
+								</div>
+								<div class="degree">{{ city_weather.temperature.4 }}<sup>o</sup>C</div>
+								<small>{{ city_weather.night.4 }}<sup>o</sup></small>
+							</div>
+						</div>
+						<div class="forecast">
+							<div class="forecast-header">
+								<div class="day">{{ weekday.5|date:"l" }}</div>
+							</div> <!-- .forecast-header -->
+							<div class="forecast-content">
+								<div class="forecast-icon">
+									<img src={% static "images/icons/"|add:city_weather.icon.5|add:".svg" %} alt="" width=48>
+								</div>	
+								<div class="degree">{{ city_weather.temperature.5 }}<sup>o</sup>C</div>
+								<small>{{ city_weather.night.5 }}<sup>o</sup></small>
+							</div>
+						</div>
+						<div class="forecast">
+							<div class="forecast-header">
+								<div class="day">{{ weekday.6|date:"l" }}</div>
+							</div> <!-- .forecast-header -->
+							<div class="forecast-content">
+								<div class="forecast-icon">
+									<img src={% static "images/icons/"|add:city_weather.icon.6|add:".svg" %} alt="" width=48>
+								</div>
+								<div class="degree">{{ city_weather.temperature.6 }}<sup>o</sup>C</div>
+								<small>{{ city_weather.night.6 }}<sup>o</sup></small>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+			
+			<footer class="site-footer">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6 text-center">
+							<p class="colophon">Weather & Mood <br> Andrey Velts - ITMO 2018</p>
+						</div>
+						<div class="col-md-3 col-md-offset-3">
+							<div class="social-links">
+								<a href="https://github.com/ThreshHNS/weatherandmood"><i class="fa fa-github"></i></a>
+								<a href="https://vk.com/threshns"><i class="fa fa-vk"></i></a>
+								<a href="https://www.instagram.com/andreyb0y/"><i class="fa fa-instagram"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</footer> <!-- .site-footer -->
+		</div>
+		
+	</body>
+
+</html>
