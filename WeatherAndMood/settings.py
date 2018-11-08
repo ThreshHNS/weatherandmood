@@ -40,14 +40,6 @@ INSTALLED_APPS = [
     'weather',
 ]
 
-#Ссылка, по которой статика будет доступна на веб-странице
-STATIC_URL = '/static/'
-
-#Папка на сервере, в которой будет храниться статика
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -120,10 +112,10 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/weather/static/'

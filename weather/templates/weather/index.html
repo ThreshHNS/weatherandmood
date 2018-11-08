@@ -6,11 +6,16 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
 		
-		<title>Compass Starter by Ariona, Rian</title>
+		<title>Weather & Mood - Курсовая работа ITMO</title>
 
 		<!-- Loading third party fonts -->
 		<link href="http://fonts.googleapis.com/css?family=Roboto:300,400,700|" rel="stylesheet" type="text/css">
 		<link href={% static "fonts/font-awesome.min.css" %} rel="stylesheet" type="text/css">
+
+		<!-- Loading favicon -->
+		<link rel="apple-touch-icon" sizes="180x180" href={% static "images/apple-touch-icon.png" %}>
+		<link rel="icon" type="image/png" sizes="32x32" href={% static "images/favicon-32x32.png" %}>
+		<link rel="icon" type="image/png" sizes="16x16" href={% static "images/favicon-16x16.png" %}>
 
 		<!-- Loading main css file -->
 		<link rel="stylesheet" href={% static "style.css" %}>
@@ -29,7 +34,7 @@
 		<div class="site-content">
 			<div class="site-header">
 				<div class="container">
-					<a href="index.html" class="branding">
+					<a href="http://127.0.0.1:8000" class="branding">
 						<img src={% static "images/logo.svg" %} alt="Weather and Mood logo" class="logo" width="320px">
 					</a>
 
@@ -38,7 +43,7 @@
 						<button type="button" class="menu-toggle"><i class="fa fa-bars"></i></button>
 						<ul class="menu">
 							<li class="menu-item current-menu-item"><a href="index.html">Home</a></li>
-							<li class="menu-item"><a href="news.html">Cities</a></li>
+							<li class="menu-item"><a href="/admin/weather/city/">Cities</a></li>
 							<li class="menu-item"><a href="https://github.com/ThreshHNS/weatherandmood">GitHub</a></li>
 						</ul> <!-- .menu -->
 					</div> <!-- .main-navigation -->
@@ -50,16 +55,17 @@
 
 			<div class="hero" data-bg-image="images/banner.png" style="background-image: url({% static "images/banner.png" %});">
 				<div class="container">
-					<form method="POST" action="#" class="add-location">
+					<form method="POST" class="add-location">
 					{% csrf_token %}	
 						{{ form.name }}
 						<input type="submit" value="Add">
 					</form>
+					{{ form.name.errors }}
 				</div>
 			</div>
 			{% for city_weather in data_weather %}
 			<div class="forecast-table">
-				<div class="container">
+				<div class="container {% if forloop.first %}forecast-first{% endif %}">
 					<div class="forecast-container">
 						<div class="today forecast">
 							<div class="forecast-header">
@@ -67,7 +73,12 @@
 								<div class="date">{{ weekday.0|date:"j M" }}</div>
 							</div> <!-- .forecast-header -->
 							<div class="forecast-content">
-								<div class="location">{{ city_weather.city}} <i class="fa fa-info-circle" aria-hidden="true"></i></div>
+								<div class="location">
+									{{ city_weather.city}}
+									<i class="fa fa-info-circle help" aria-hidden="true">
+									</i>
+									<span class="tooltiptext">Country: {{ city_weather.country }}</br>Coordinates: {{ city_weather.location }}</span>
+								</div>
 								<div class="degree">
 									<div class="num">{{ city_weather.temperature.0 }}<sup>o</sup>C</div>
 									<div class="forecast-icon">

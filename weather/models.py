@@ -10,3 +10,16 @@ class City(models.Model):
 
     class Meta:
     	verbose_name_plural = 'cities'
+
+class Weather(models.Model):
+    city = models.ForeignKey(City, on_delete=models.CASCADE)
+    time = models.DateTimeField(verbose_name='Time')
+    temp = models.IntegerField(verbose_name='Temperature')
+    night = models.IntegerField(verbose_name='Temperature night')
+    wind = models.IntegerField(verbose_name='Wind')
+    humidity = models.IntegerField(verbose_name='Cloudiness')
+    direction = models.CharField(verbose_name='Direction of wind', max_length=8)
+    icon = models.CharField(verbose_name='Icon', max_length=4)
+
+    def __str__(self):
+        return "{0} {1}".format( self.city, self.time.strftime('%d-%m-%y') )
