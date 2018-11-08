@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import requests
 from django.shortcuts import render
 from datetime import datetime
@@ -43,6 +44,10 @@ def index(request):
 
         # For each elemnt in JSON parse date to Weather() model (datebase)
         for item in r['list']:
+
+            # Weekday parser [Mon, Tue etc.]
+            weekday = [datetime.fromtimestamp(
+            int(r['list'][i]['dt'])) for i in range(7)]
 
             weather = Weather()
 
