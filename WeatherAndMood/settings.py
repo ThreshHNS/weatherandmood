@@ -25,7 +25,7 @@ SECRET_KEY = '6752v3d6=dsrn^9tn2o7yl+3d(!)52e(lmlc7z3c&(3c)=7l5-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '142.93.169.46']
 
 
 # Application definition
@@ -118,4 +118,5 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
-STATIC_URL = '/weather/static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, '../static/')
